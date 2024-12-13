@@ -24,8 +24,12 @@
     </section>
 
     <section class="mb-6 bg-white dark:bg-gray-700 p-4 rounded shadow">
-      <div class="mb-4">
-        <label for="language" class="block text-sm font-medium">Выберите язык</label>
+      <div class="flex items-center gap-3 mb-4">
+        <button
+            @click="runCode"
+            :disabled="!canRunCode"
+            class="px-4 py-2 rounded bg-green-500 text-white font-semibold shadow disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >Запустить</button>
         <select
             id="language"
             v-model="currentCodeLanguage"
@@ -62,8 +66,12 @@ import type * as monaco from 'monaco-editor';
 type CodeLanguage = 'plaintext' | 'python' | 'javascript';
 
 const isDarkTheme = ref(false);
-const code = ref('// Напишите обычный текст');
+const code = ref('');
 const currentCodeLanguage = ref<CodeLanguage>('plaintext');
+
+const canRunCode = computed(() => {
+  return currentCodeLanguage.value !== 'plaintext' && code.value.trim().length > 0;
+});
 
 const editorOptions = ref<monaco.editor.IStandaloneEditorConstructionOptions>({
   automaticLayout: true,
@@ -84,10 +92,20 @@ function changeTheme(): void {
 }
 
 const defaultCodeSamples: Record<CodeLanguage, string> = {
-  plaintext: '// Напишите обычный текст',
-  javascript: "// Напишите JavaScript код",
-  python: "Напишите Python код",
+  plaintext: '',
+  javascript: "console.log('Hello, JavaScript!');",
+  python: "print('Hello, Python!')",
 };
+
+function runCode(): void {
+  if (!code.value.trim()) {
+    console.warn('Код отсутствует!');
+    return;
+  }
+
+  console.log(`Выполняем код на языке ${currentCodeLanguage.value}:`);
+  console.log(code.value);
+}
 
 watch(currentCodeLanguage, (newLanguage) => {
   code.value = defaultCodeSamples[newLanguage] || defaultCodeSamples.plaintext;
@@ -97,10 +115,5 @@ watch(currentCodeLanguage, (newLanguage) => {
 <style scoped>
 .h-96 {
   height: 24rem;
-}
-
-body.dark {
-  background-color: #1f2937;
-  color: #e5e7eb;
 }
 </style>
