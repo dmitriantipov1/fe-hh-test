@@ -2,7 +2,17 @@ import {MockedResponse} from "~/server/types";
 import {CodeLanguage} from "~/types";
 
 export default defineEventHandler(async (event): Promise<MockedResponse> => {
-    const body = await readBody(event); // Считываем тело запроса
+    setResponseHeaders(event, {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+    });
+
+    if (getMethod(event) === 'OPTIONS') {
+        return {error: "", output: "", status: 'error'};
+    }
+
+    const body = await readBody(event);
     const { language, code } = body;
 
     await new Promise((resolve) => setTimeout(resolve, 2000));
