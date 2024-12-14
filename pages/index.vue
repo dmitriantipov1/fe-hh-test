@@ -24,12 +24,12 @@
       />
     </div>
 
-    <MonacoEditor
-        v-model="code"
-        :options="editorOptions"
-        :lang="currentCodeLanguage"
-        class="h-96 border border-gray-300 dark:border-gray-600 rounded"
-    />
+      <MonacoEditor
+          v-model="code"
+          :options="editorOptions"
+          :lang="currentCodeLanguage"
+          class="h-96 border border-gray-300 dark:border-gray-600 rounded"
+      />
 
     <ResultComponent
         :result="result"
@@ -45,13 +45,15 @@ import Header from "~/components/header/header-component.vue";
 import type {Theme} from "~/composables/types";
 import {codeLanguagesArray, defaultCodeSamples} from "~/constants";
 import {CodeLanguage} from "~/types";
+import type {MonacoEditorOptions} from "~/types/monaco";
+
 
 const currentCodeLanguage = ref<CodeLanguage>(CodeLanguage.JAVASCRIPT);
 const code = ref('');
 const result = ref<string | null>(null);
 const isLoading = ref(false);
 
-const editorOptions = ref<monaco.editor.IStandaloneEditorConstructionOptions>({
+const editorOptions = ref<MonacoEditorOptions>({
   automaticLayout: true,
   renderLineHighlight: 'all',
   theme: 'vs-light',
@@ -114,6 +116,24 @@ useHead({
     { property: 'og:title', content: 'Онлайн редактор кода' },
     { property: 'og:description', content: 'Пишите и выполняйте код на выбранном вами языке программирования.' },
     { property: 'og:type', content: 'website' },
+  ],
+});
+
+useHead({
+  link: [
+    { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebApplication',
+        name: 'Онлайн редактор кода',
+        description: 'Пишите и выполняйте код на выбранном вами языке программирования.',
+        url: 'https://yourwebsite.com',
+      }),
+    },
   ],
 });
 </script>

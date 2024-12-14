@@ -19,7 +19,7 @@ export default defineEventHandler(async (event): Promise<MockedResponse> => {
             new Function(code);
             return {
                 status: 'success',
-                output: 'Hello, world!\n',
+                output: 'Hello, JavaScript!\n',
             };
         } catch (e) {
             return {
