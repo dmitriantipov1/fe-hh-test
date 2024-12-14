@@ -1,75 +1,86 @@
-# Nuxt Minimal Starter
+# Проект: Онлайн редактор кода
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Описание
+Онлайн редактор кода позволяет писать, запускать и тестировать код на различных языках программирования, таких как JavaScript, Python, и Go.
 
-## Setup
+---
 
-Make sure to install dependencies:
+## Системные требования
 
-```bash
-# npm
-npm install
+1. **Node.js**: Убедитесь, что Node.js версии **16.x** или выше установлен на вашем компьютере. Проверить версию можно командой:
+   ```bash
+   node -v
+   ```
+2. **npm**: Убедитесь, что npm версии **8.x** или выше установлен. Проверить версию можно командой:
+   ```bash
+   npm -v
+   ```
+3. **Дополнительно**: Рекомендуется использовать пакетный менеджер `pnpm` или `yarn`.
 
-# pnpm
-pnpm install
+---
 
-# yarn
-yarn install
+## Установка и запуск проекта
 
-# bun
-bun install
-```
+1. **Клонирование репозитория:**
+   Склонируйте репозиторий на ваш локальный компьютер:
+   ```bash
+   git clone https://github.com/dmitriantipov1/fe-hh-test.git
+   cd fe-hh-test
+   ```
 
-## Development Server
+2. **Установка зависимостей:**
+   Вы можете использовать `npm` или `yarn`:
 
-Start the development server on `http://localhost:3000`:
+    - Для `npm`:
+      ```bash
+      npm install
+      ```
 
-```bash
-# npm
-npm run dev
+    - Для `yarn`:
+      ```bash
+      yarn install
+      ```
 
-# pnpm
-pnpm dev
+3. **Запуск разработки:**
+   Вы можете использовать `npm` или `yarn`:
 
-# yarn
-yarn dev
+    - Для `npm`:
+      ```bash
+      npm run dev
+      ```
 
-# bun
-bun run dev
-```
+    - Для `yarn`:
+      ```bash
+      yarn dev
+      ```
 
-## Production
+---
 
-Build the application for production:
+## Дополнительные команды
 
-```bash
-# npm
-npm run build
+1. **Сборка для продакшена:**
+   Для создания оптимизированной сборки выполните:
+   ```bash
+   npm run build
+   ```
 
-# pnpm
-pnpm build
+   Или для `yarn`:
+   ```bash
+   yarn build
+   ```
 
-# yarn
-yarn build
+2. **Предварительный просмотр продакшена:**
+   Чтобы запустить предварительный просмотр собранного приложения:
+   ```bash
+   npm run preview
+   ```
 
-# bun
-bun run build
-```
+   Или для `yarn`:
+   ```bash
+   yarn preview
+   ```
 
-Locally preview production build:
+---
 
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+### Как связаться с разработчиком?
+Если у вас есть вопросы, вы можете связаться через [Telegram](https://t.me/DmitriAntipov).
