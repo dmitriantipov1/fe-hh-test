@@ -40,18 +40,20 @@
 </template>
 
 <script lang="ts" setup>
-import type * as monaco from 'monaco-editor';
 import Header from "~/components/header/header-component.vue";
 import type {Theme} from "~/composables/types";
 import {codeLanguagesArray, defaultCodeSamples} from "~/constants";
 import {CodeLanguage} from "~/types";
 import type {MonacoEditorOptions} from "~/types/monaco";
-
+import {useRestClient} from "~/composables/core/api/useRestClient";
+import {EXECUTE_API_URL} from "~/composables/core/api/constants";
 
 const currentCodeLanguage = ref<CodeLanguage>(CodeLanguage.JAVASCRIPT);
 const code = ref('');
 const result = ref<string | null>(null);
 const isLoading = ref(false);
+
+const { fetchPost } = useRestClient();
 
 const editorOptions = ref<MonacoEditorOptions>({
   automaticLayout: true,
@@ -85,20 +87,15 @@ async function runCode(): Promise<void> {
   result.value = null;
 
   try {
-    const response = await fetch('/api/execute', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        language: currentCodeLanguage.value,
-        code: code.value,
-      }),
+    const response = await fetchPost(EXECUTE_API_URL, {
+      language: currentCodeLanguage.value,
+      code: code.value,
     });
 
-    const data = await response.json();
-    if (data.status === 'success') {
-      result.value = data.output || 'Execution completed with no output.';
-    } else if (data.status === 'error') {
-      result.value = `Error: ${data.error}`;
+    if (response.status === 'success') {
+      result.value = response.output || 'Execution completed with no output.';
+    } else if (response.status === 'error') {
+      result.value = `Error: ${response.error}`;
     }
   } catch (error) {
     result.value = 'Error: Failed to connect to server';
